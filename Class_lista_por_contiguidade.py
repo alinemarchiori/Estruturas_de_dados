@@ -7,6 +7,9 @@ class Produto:
 
     def getDados(self):
         return self.nome, self.valor, self.codigo
+    
+    def getCodigo(self):
+        return self.codigo
 
 class Lista:
     def __init__(self, tamanho=20):
@@ -41,7 +44,7 @@ class Lista:
             self.fim = self.inicio = self.tamanho//2
             self.vetor[self.fim] = novo
     
-        elif posicao == (self.fim - self.inicio + 2) or final:#final da lista 
+        elif posicao == (self.fim - self.inicio + 2) or final or posicao == -1:#final da lista 
             self.fim += 1
             self.vetor[self.fim] = novo
         
@@ -53,7 +56,6 @@ class Lista:
         elif posicao > 1 and posicao < (self.fim - self.inicio + 2):# adiciona no meio (funciona)
             tamanho_lista = self.fim - self.inicio + 1
             metade_lista = tamanho_lista//2
-            print(metade_lista, tamanho_lista, posicao, (self.inicio+posicao), self.fim)
 
             if posicao >= metade_lista:# adiciona empurrando os elementos da metade para a direita
 
@@ -80,43 +82,69 @@ class Lista:
     def remover_pos_i(self):
         pass
 
-    def getPosicao(self):
-        pass
+    def getPosicao(self, codigo):
+        posicao = 1
+        if self.fim == None or self.inicio == None:
+            print("Lista vazia")
+            return posicao, False
+
+        else:
+            for i in range(0, self.fim - self.inicio + 1, 1):
+                
+                if self.vetor[self.inicio+i].getCodigo() == codigo:
+                    return posicao, True
+                else: posicao += 1
+
+            return None, False
 
     def limpar(self):
         pass
 
     def mostra(self, posicao):
         nome, valor, codigo, verifica = lista.consultar(posicao)
-        print(verifica)
+       
         if verifica:
-            #print("Nome: {}\nValor: {} reais\nCodigo: {}".format(nome, valor, codigo))
-            print(nome)
-            print("todos os elementos: [", end='')
-            for i in range(self.inicio, self.fim+1):
-                print(",", self.vetor[i].nome, end="")
-            print("] ")
+            print("Nome: {}\nValor: {} reais\nCodigo: {}".format(nome, valor, codigo))
+
         else: 
             print(nome)
 
-#################################################
+    def mostraLista(self):
+        if self.fim == None or self.inicio == None:
+            print("Lista vazia")
+
+        else:
+            for i in range(self.inicio, self.fim+1,1):
+
+                if i == self.inicio:
+                    print("["+ str(self.vetor[i].nome), end="")
+
+                else: print(",", self.vetor[i].nome, end="")
+
+            print("] ")
+
+
+############################################################################################
 
 lista = Lista()
 
 while True:
-    #print("0 - Sair")
-    print("1 - Inserir um elemento na lista")
+    print("0 - Sair")
+    print("1 - Inserir um elemento na lista:")
     #print("2 - Remover um elemento da lista")
-    print("3 - Consultar um elemento da lista")
+    print("3 - Consultar um elemento da lista pela posicao:")
+    print("4 - Encontrar um produto pelo codigo:")
+    print("5 - Ver lista de produtos:")
     escolha = int(input())
 
     ######### ENCERRAR
     if escolha == 0:
         break
+
     ######### INSERIR
     elif escolha == 1:
         posicao = input("Digite a posição se quiser: ")
-        valor, codigo, nome = input("informe o valor, codigo e nome").split()
+        valor, codigo, nome = input("informe o valor, codigo e nome: ").split()
         novo = Produto(float(valor), int(codigo), nome)
         if posicao == "" or posicao == -1:
             posicao=-1
@@ -131,4 +159,16 @@ while True:
         posicao = int(input("Digite a posicao: "))
         lista.mostra(posicao)
 
+    ######### MOSTRAR A POSIÇÃO DE ACORDO COM O CÓDIGO
+    elif escolha == 4:
+        codigo = int(input("Informe o codigo do produto: "))
+        posicao, encontrou = lista.getPosicao(codigo)
+        if encontrou == False:
+            print("Elemento não encontrado")
+        else: 
+            lista.mostra(posicao)
+            print("O produto de codigo {} está na posicao {} da lista.".format(codigo, posicao))
 
+    ######### MOSTRAR TODA A LISTA
+    elif escolha == 5:
+        lista.mostraLista()
