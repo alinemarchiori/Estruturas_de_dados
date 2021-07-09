@@ -34,6 +34,10 @@ class Lista:
     def inserir_pos_i(self, novo, posicao, final):
 
         if self.inicio == None and self.fim == None: #adiciona quando a lista está vazia
+
+            if posicao < -1 or posicao > self.valor_limite:
+                print("Posicao invalida, seu elemento foi inserido no inicio da lista!")
+
             self.fim = self.inicio = self.tamanho//2
             self.vetor[self.fim] = novo
     
@@ -43,42 +47,35 @@ class Lista:
         
         elif posicao == 1: #inicio da lista
             self.inicio -= 1
-            self.fim += 1 ############ não sei se ta certo (teoricamente aumenta um no fim)
+            self.fim += 1 ############ não sei se precisa (teoricamente aumenta um no fim)
             self.vetor[self.inicio] = novo
     
-        elif posicao > 1 and posicao < (self.fim - self.inicio + 2):# adiciona no meio (não funciona)
+        elif posicao > 1 and posicao < (self.fim - self.inicio + 2):# adiciona no meio (funciona)
             tamanho_lista = self.fim - self.inicio + 1
             metade_lista = tamanho_lista//2
             print(metade_lista, tamanho_lista, posicao, (self.inicio+posicao), self.fim)
-            if posicao >= metade_lista:
+
+            if posicao >= metade_lista:# adiciona empurrando os elementos da metade para a direita
+
                 for i in range(self.inicio+posicao-1,self.inicio+tamanho_lista+1,1):
-                    print("entrei pra adicionar no meio   ", i)
                     auxiliar = self.vetor[i]
                     self.vetor[i] = novo
                     novo = auxiliar
+
                 self.fim += 1
 
-            elif posicao < metade_lista:
-                for i in range(self.inicio+posicao,self.inicio+tamanho_lista,1):
-                    print("entrei pra adicionar no meio 1111  ", i)
-                    auxiliar = self.vetor[i]
-                    self.vetor[i] = novo
-                    novo = auxiliar
-                self.fim += 1
-        '''
-        elif posicao > 1 and posicao < (self.fim - self.inicio + 2):# adiciona no inicio da lista também
-            tamanho_lista = self.fim - self.inicio + 1
-            metade_lista = tamanho_lista//2
-            print(metade_lista, tamanho_lista, posicao, (self.inicio+posicao))
-            if posicao >= metade_lista:
-                for i in range(self.inicio,self.inicio+tamanho_lista,1):
-                    print("entrei pra adicionar no meio   ", i)
-                    auxiliar = self.vetor[i]
-                    self.vetor[i] = novo
-                    novo = auxiliar
-                self.fim += 1'''
+            elif posicao < metade_lista:# adiciona empurrando os elementos da metade para a esquerda
+                cont = posicao - 1
 
-        
+                while cont >= 0:
+                    auxiliar = self.vetor[self.inicio+cont-1]
+                    self.vetor[self.inicio+cont-1] = novo
+                    novo = auxiliar
+                    cont -= 1
+
+                self.inicio -= 1
+
+        else: print("Posicao invalida!")
 
     def remover_pos_i(self):
         pass
