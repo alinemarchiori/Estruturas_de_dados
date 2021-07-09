@@ -51,7 +51,7 @@ class Lista:
             metade_lista = tamanho_lista//2
             print(metade_lista, tamanho_lista, posicao, (self.inicio+posicao), self.fim)
             if posicao >= metade_lista:
-                for i in range(self.inicio+posicao,self.inicio+tamanho_lista,1):
+                for i in range(self.inicio+posicao-1,self.inicio+tamanho_lista+1,1):
                     print("entrei pra adicionar no meio   ", i)
                     auxiliar = self.vetor[i]
                     self.vetor[i] = novo
@@ -60,7 +60,7 @@ class Lista:
 
             elif posicao < metade_lista:
                 for i in range(self.inicio+posicao,self.inicio+tamanho_lista,1):
-                    print("entrei pra adicionar no meio   ", i)
+                    print("entrei pra adicionar no meio 1111  ", i)
                     auxiliar = self.vetor[i]
                     self.vetor[i] = novo
                     novo = auxiliar
