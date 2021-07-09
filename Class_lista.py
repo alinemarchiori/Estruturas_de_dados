@@ -33,7 +33,7 @@ class Lista:
 
     def inserir_pos_i(self, novo, posicao, final):
 
-        if self.inicio == None and self.fim == None:
+        if self.inicio == None and self.fim == None: #adiciona quando a lista está vazia
             self.fim = self.inicio = self.tamanho//2
             self.vetor[self.fim] = novo
     
@@ -43,6 +43,7 @@ class Lista:
         
         elif posicao == 1: #inicio da lista
             self.inicio -= 1
+            self.fim += 1 ############ não sei se ta certo (teoricamente aumenta um no fim)
             self.vetor[self.inicio] = novo
     
         elif posicao > 1 and posicao < (self.fim - self.inicio + 2):# adiciona no meio (não funciona)
@@ -56,6 +57,7 @@ class Lista:
                     self.vetor[i] = novo
                     novo = auxiliar
                 self.fim += 1
+
             elif posicao < metade_lista:
                 for i in range(self.inicio+posicao,self.inicio+tamanho_lista,1):
                     print("entrei pra adicionar no meio   ", i)
@@ -93,25 +95,16 @@ class Lista:
         if verifica:
             #print("Nome: {}\nValor: {} reais\nCodigo: {}".format(nome, valor, codigo))
             print(nome)
-            print("todos os elementos: ", end='')
+            print("todos os elementos: [", end='')
             for i in range(self.inicio, self.fim+1):
-                print(self.vetor[i].nome, end=", ")
-            print("/n")
+                print(",", self.vetor[i].nome, end="")
+            print("] ")
         else: 
             print(nome)
 
 #################################################
 
 lista = Lista()
-'''
-novo = Produto(1.0, 1, "teste")
-lista.inserir_pos_i(novo, 1)
-novo = Produto(2.0, 2, "teste2")
-lista.inserir_pos_i(novo, 2)
-novo = Produto(3.0, 3, "teste3")
-lista.inserir_pos_i(novo, 3)
-novo = Produto(4.0, 4, "teste4")
-lista.inserir_pos_i(novo, 4)'''
 
 while True:
     #print("0 - Sair")
@@ -120,19 +113,23 @@ while True:
     print("3 - Consultar um elemento da lista")
     escolha = int(input())
 
+    ######### ENCERRAR
     if escolha == 0:
         break
+    ######### INSERIR
     elif escolha == 1:
-        posicao = input("Digite a posição")
+        posicao = input("Digite a posição se quiser: ")
         valor, codigo, nome = input("informe o valor, codigo e nome").split()
         novo = Produto(float(valor), int(codigo), nome)
-        if posicao == "":
-            lista.inserir_pos_i(novo, int(posicao), True)
+        if posicao == "" or posicao == -1:
+            posicao=-1
+            lista.inserir_pos_i(novo, posicao, True)
         else:
             lista.inserir_pos_i(novo, int(posicao), False)
     elif escolha == 2:
         pass
-
+    
+    ######### MOSTRAR
     elif escolha == 3:
         posicao = int(input("Digite a posicao: "))
         lista.mostra(posicao)
