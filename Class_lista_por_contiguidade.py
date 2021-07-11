@@ -45,7 +45,7 @@ class Lista:
         self.inicio = None
         self.fim = None
 
-    def consultar(self, posicao=-1):
+    def consultar(self, posicao=-1): #FUNÇÃO INTERNA
         
         if self.fim == None or self.inicio == None: return 'Lista vazia', 0, 0, False
             
@@ -55,7 +55,7 @@ class Lista:
             nome, valor, codigo = self.vetor[self.inicio + posicao - 1].getDados()
             return nome, valor, codigo, True
 
-    def inserir_pos_i(self, novo, posicao):
+    def inserir_pos_i(self, novo, posicao):#INSERIR
 
         if self.inicio == None and self.fim == None: #adiciona quando a lista está vazia
 
@@ -106,26 +106,27 @@ class Lista:
 
         else: print("Posicao invalida!")
 
-    def tam(self):
+    def tam(self):#FUNÇÃO INTERNA
 
         self.tamanho_lista = self.fim - self.inicio + 1
         self.metade_lista = self.tamanho_lista//2
 
-    def dimensione(self): 
+    def dimensione(self):#TAMANHO
+
         if self.fim == None: return 0; 
         else: return(self.fim - self.inicio + 1)
         
-    def remover_pos_i(self, posicao):
+    def remover_pos_i(self, posicao):#REMOVE
         
         nome, valor, codigo, verifica = lista.consultar(posicao)
         vazia = False
-        if lista.dimensione() == 1: vazia = True
+        if lista.dimensione() == 1: vazia = True #serve para quando tem um só elemente e ele é removido, aí eu zero as variáveis de início e fim
 
         if verifica:
 
             lista.tam()
 
-            if posicao >= self.metade_lista:
+            if posicao >= self.metade_lista: # remove empurrando os elementos para a esquerda 
 
                 cont = - 1
 
@@ -136,7 +137,7 @@ class Lista:
 
                 self.fim -= 1
 
-            elif posicao < self.metade_lista:
+            elif posicao < self.metade_lista: # remove empurrando os elementos para a direita
         
                 for i in range(0, posicao, 1):
 
@@ -148,7 +149,7 @@ class Lista:
             else: print(nome)
             if vazia == True: lista.limpar()
 
-    def getPosicao(self, codigo):
+    def getPosicao(self, codigo):#POSIÇÃO
 
         if self.fim == None or self.inicio == None:
 
@@ -171,11 +172,11 @@ class Lista:
             print("Elemento nao encontrado")
             return None
 
-    def limpar(self):
+    def limpar(self):#AUTOEXPLICATIVA
 
         self.inicio = self.fim = None
 
-    def mostra(self, posicao):
+    def mostra(self, posicao):#MOSTRA ELEMENTO
 
         nome, valor, codigo, verifica = lista.consultar(posicao)
        
@@ -187,7 +188,7 @@ class Lista:
 
             print(nome)
 
-    def mostraLista(self):
+    def mostraLista(self):#AUTOEXPLICATIVA
 
         if self.fim == None or self.inicio == None:
 
@@ -268,9 +269,11 @@ while True:
     elif escolha == 5:
         lista.mostraLista()
 
+    ######### APAGAR TODOS OS ELEMENTOS
     elif escolha == 6:
         lista.limpar()
 
+    ######### MOSTRAR O TAMANHO DA LISTA
     elif escolha == 7:
         print(lista.dimensione())
 
