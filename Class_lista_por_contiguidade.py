@@ -1,7 +1,28 @@
+############################################################################################
+
+# FUNÇÕES DISPONÍVEIS
+#---------------------------------------------insere elemento
+#   lista.inserir_pos_i(ELEMENTO, POSIÇÃO) 
+#---------------------------------------------remove elemento pela posição
+#   lista.remover_pos_i(POSIÇÃO)
+#---------------------------------------------mostra o elemento da posição indicada
+#   lista.mostra(POSIÇÃO)
+#---------------------------------------------mostra o elemento informando o atributo (codigo) do abjeto Produto
+#   lista.getPosicao(CÓDIGO)
+#---------------------------------------------mostra a lista toda
+#   lista.mostraLista()
+#---------------------------------------------apaga todos os elementos
+#   lista.limpar()
+#---------------------------------------------retorna o tamanho da lista
+#   lista.dimensione()
+
+############################################################################################
+
+
 
 class Produto:
     def __init__(self, valor=0, codigo=0, nome=""):
-        
+
         self.valor = valor
         self.codigo = codigo
         self.nome = nome
@@ -15,7 +36,7 @@ class Produto:
         return self.codigo
 
 class Lista:
-    def __init__(self, tamanho=20):
+    def __init__(self, tamanho=100):
 
         self.tamanho = tamanho
         self.vetor = [Produto()] * self.tamanho
@@ -24,7 +45,7 @@ class Lista:
         self.inicio = None
         self.fim = None
 
-    def consultar(self, posicao):
+    def consultar(self, posicao=-1):
         
         if self.fim == None or self.inicio == None: return 'Lista vazia', 0, 0, False
             
@@ -34,7 +55,7 @@ class Lista:
             nome, valor, codigo = self.vetor[self.inicio + posicao - 1].getDados()
             return nome, valor, codigo, True
 
-    def inserir_pos_i(self, novo, posicao, final):
+    def inserir_pos_i(self, novo, posicao):
 
         if self.inicio == None and self.fim == None: #adiciona quando a lista está vazia
 
@@ -45,7 +66,7 @@ class Lista:
             self.fim = self.inicio = self.tamanho//2
             self.vetor[self.fim] = novo
     
-        elif posicao == (self.fim - self.inicio + 2) or final or posicao == -1:#final da lista 
+        elif posicao == (self.fim - self.inicio + 2) or posicao == -1:#final da lista 
             
             self.fim += 1
             self.vetor[self.fim] = novo
@@ -90,9 +111,15 @@ class Lista:
         self.tamanho_lista = self.fim - self.inicio + 1
         self.metade_lista = self.tamanho_lista//2
 
+    def dimensione(self): 
+        if self.fim == None: return 0; 
+        else: return(self.fim - self.inicio + 1)
+        
     def remover_pos_i(self, posicao):
         
         nome, valor, codigo, verifica = lista.consultar(posicao)
+        vazia = False
+        if lista.dimensione() == 1: vazia = True
 
         if verifica:
 
@@ -119,27 +146,30 @@ class Lista:
                 self.inicio += 1
 
             else: print(nome)
+            if vazia == True: lista.limpar()
 
     def getPosicao(self, codigo):
-
-        posicao = 1
 
         if self.fim == None or self.inicio == None:
 
             print("Lista vazia")
-            return posicao, False
+            return None
 
         else:
+
+            posicao = 1
+            verifica = False
 
             for i in range(0, self.fim - self.inicio + 1, 1):
                 
                 if self.vetor[self.inicio+i].getCodigo() == codigo:
 
-                    return posicao, True
+                    return posicao
 
                 else: posicao += 1
 
-            return None, False
+            print("Elemento nao encontrado")
+            return None
 
     def limpar(self):
 
@@ -175,7 +205,7 @@ class Lista:
             print("] ")
 
 
-############################################################################################
+###############################################################################################################################
 
 lista = Lista()
 
@@ -188,6 +218,7 @@ while True:
     print("4 - Encontrar um produto pelo codigo:")
     print("5 - Ver lista de produtos:")
     print("6 - Apagar todos os elementos:")
+    print("7 - Ver o tamanho da lista")
     escolha = int(input())
 
     ######### ENCERRAR
@@ -205,10 +236,10 @@ while True:
         if posicao == "" or posicao == -1:
 
             posicao=-1
-            lista.inserir_pos_i(novo, posicao, True)
+            lista.inserir_pos_i(novo, posicao)
 
         else:
-            lista.inserir_pos_i(novo, int(posicao), False)
+            lista.inserir_pos_i(novo, int(posicao))
     
     ######### APAGAR UM ELEMENTO PELA POSIÇÃO
     elif escolha == 2:
@@ -226,12 +257,10 @@ while True:
     elif escolha == 4:
 
         codigo = int(input("Informe o codigo do produto: "))
-        posicao, encontrou = lista.getPosicao(codigo)
+        posicao = lista.getPosicao(codigo)
 
-        if encontrou == False:
-            print("Elemento não encontrado")
+        if posicao != None:
 
-        else: 
             lista.mostra(posicao)
             print("O produto de codigo {} está na posicao {} da lista.".format(codigo, posicao))
 
@@ -241,5 +270,8 @@ while True:
 
     elif escolha == 6:
         lista.limpar()
+
+    elif escolha == 7:
+        print(lista.dimensione())
 
     else: print("Posicao invalida!")
