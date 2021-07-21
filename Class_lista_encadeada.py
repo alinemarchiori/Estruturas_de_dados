@@ -64,7 +64,14 @@ class Lista:
 
     
     def posicao(self, valor):
-        pass
+        contador = 0
+        auxiliar = self.inicio
+        for i in range(self.quantidade_itens):
+            if auxiliar.dado == valor:
+                return contador
+            else: contador += 1; auxiliar = auxiliar.proximo_elemento
+        print("não encontrado")
+        return None
 
     def valor(self, posicao_item):
         pass
@@ -98,3 +105,4 @@ lista.insere(0, 4)
 lista.mostra()
 lista.remove(0)
 lista.mostra()
+print(lista.posicao(0))
