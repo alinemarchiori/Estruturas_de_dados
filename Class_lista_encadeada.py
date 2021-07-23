@@ -85,6 +85,24 @@ class Lista:
             objeto = objeto.proximo_elemento
         print()
 
+    def tamanho(self): return self.quantidade_itens # retorna o tamanho da lista
+
+    def imprime_inverso(self):
+        pass
+
+    def compara_listas(self, lista): #compara se duas listas encadeadas são iguais
+        if self.quantidade_itens == lista.tamanho():
+            lista1 = self.inicio
+            lista2 = lista.inicio
+            verifica = True
+            for i in range(self.quantidade_itens):
+                if lista1.dado != lista2.dado: return False; print("erro")
+                else: 
+                    lista1 = lista1.proximo_elemento
+                    lista2 = lista2.proximo_elemento
+            return True
+        else: return False
+
 #TESTES
 lista = Lista()
 lista.insere(0, 0)
@@ -93,14 +111,19 @@ lista.insere(2)
 lista.insere(3)
 lista.insere(5)
 lista.insere(6)
-lista.mostra()
 lista.insere(4, 4)
-lista.mostra()
 lista.insere(0, 4)
 lista.mostra()
-lista.remove(0)
-lista.mostra()
-print(lista.getPosicao(0))
-print(lista.getValor(3))
-lista.destroi()
-lista.mostra()
+
+lista2 = Lista()
+lista2.insere(0, 0)
+lista2.insere(1)
+lista2.insere(2)
+lista2.insere(3)
+lista2.insere(5)
+lista2.insere(6)
+lista2.insere(4, 4)
+lista2.insere(2, 4)
+lista2.mostra()
+
+print(lista.compara_listas(lista2))
