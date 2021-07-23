@@ -84,11 +84,16 @@ class Lista:
             print(objeto.dado, end=" ")
             objeto = objeto.proximo_elemento
         print()
-
+    
     def tamanho(self): return self.quantidade_itens # retorna o tamanho da lista
 
-    def imprime_inverso(self):
-        pass
+    def reverte(self): # retorna a lista ao contrário
+        lista = self.inicio
+        reversa = Lista() # cria uma nova lista, pegando os elementos da antiga e inserindo no início da nova
+        for i in range(self.tamanho()):
+            reversa.insere(lista.dado, 0)
+            lista = lista.proximo_elemento
+        return reversa
 
     def compara_listas(self, lista): #compara se duas listas encadeadas são iguais
         if self.quantidade_itens == lista.tamanho():
@@ -114,7 +119,10 @@ lista.insere(6)
 lista.insere(4, 4)
 lista.insere(0, 4)
 lista.mostra()
+lista = lista.reverte()
+lista.mostra()
 
+'''
 lista2 = Lista()
 lista2.insere(0, 0)
 lista2.insere(1)
@@ -125,5 +133,5 @@ lista2.insere(6)
 lista2.insere(4, 4)
 lista2.insere(2, 4)
 lista2.mostra()
-
 print(lista.compara_listas(lista2))
+'''
