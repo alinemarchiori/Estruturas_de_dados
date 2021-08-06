@@ -99,9 +99,8 @@ class Lista:
         if self.quantidade_itens == lista.tamanho():
             lista1 = self.inicio
             lista2 = lista.inicio
-            verifica = True
             for i in range(self.quantidade_itens):
-                if lista1.dado != lista2.dado: return False; print("erro")
+                if lista1.dado != lista2.dado: return False
                 else: 
                     lista1 = lista1.proximo_elemento
                     lista2 = lista2.proximo_elemento
