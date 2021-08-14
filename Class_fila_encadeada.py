@@ -1,3 +1,5 @@
+from Class_pilha_encadeada import *
+
 
 class Noh:
     def __init__(self, dado):
@@ -9,6 +11,41 @@ class FilaEncadeada:
         self.inicio = None
         self.fim = None
         self.tamanho = 0
+
+    def ordena(self):
+        pilha1 = PilhaEncadeada()
+        pilha2 = PilhaEncadeada()
+        while self.tamanho > 0:
+            if pilha1.tamanho == 0:
+                pilha1.insere(self.inicio.dado)
+                self.remove()
+
+            elif self.inicio.dado >= pilha1.consulta():
+            
+                while self.inicio.dado > pilha1.consulta():
+                    
+                    pilha2.insere(pilha1.consulta())
+                    pilha1.remove()
+                    if pilha1.consulta() == None: break
+
+                pilha1.insere(self.inicio.dado)
+
+                while pilha2.consulta():
+                    pilha1.insere(pilha2.consulta())
+                    pilha2.remove()
+                
+                self.remove()
+
+            elif self.inicio.dado < pilha1.consulta():
+                pilha1.insere(self.inicio.dado)
+                self.remove()
+
+        while pilha1.consulta():
+            self.insere(pilha1.consulta())
+            pilha1.remove()
+
+        pilha2.mostra()
+        pilha1.mostra()
 
     def insere(self, dado):#insere no final da fila
         novo = Noh(dado)
@@ -51,15 +88,17 @@ class FilaEncadeada:
         print()
 
 fila = FilaEncadeada()
+print("----------")
+fila.mostra()
+print("----------")
+fila.insere(2)
+fila.insere(1)
+fila.insere(4)
+fila.insere(6)
+fila.ordena()
 
 fila.mostra()
 
-fila.insere(23)
-fila.insere(22)
-fila.insere(21)
-fila.insere(20)
-print(fila.consulta())
 fila.remove()
-print(fila.consulta())
+
 fila.mostra()
-print(fila.consulta())

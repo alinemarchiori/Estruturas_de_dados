@@ -21,7 +21,7 @@ class PilhaEncadeada:
             self.tamanho += 1
     
     def remove(self):# remove do topo da pilha
-        if self.inicio:
+        if self.inicio and self.tamanho > 1:
             auxiliar = self.inicio
             while auxiliar.proximo_elemento:
                 anterior = auxiliar
@@ -30,6 +30,9 @@ class PilhaEncadeada:
             auxiliar.proximo_elemento = None
             anterior.proximo_elemento = None
             self.tamanho -= 1
+
+        elif self.tamanho == 1:
+            self.tamanho,self.inicio = 0, None
 
         else: return None
 
