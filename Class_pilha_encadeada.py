@@ -31,7 +31,7 @@ class PilhaEncadeada:
             anterior.proximo_elemento = None
             self.tamanho -= 1
 
-        else: return False
+        else: return None
 
     def consulta(self): #retorna o valor do topo da pilha 
         if self.inicio:
@@ -39,7 +39,7 @@ class PilhaEncadeada:
             while auxiliar.proximo_elemento: auxiliar = auxiliar.proximo_elemento
             return auxiliar.dado
 
-        else: return "Vazia"
+        else: return None
 
     def destruir(self): #remove todos os elementos
         while self.inicio.proximo_elemento: self.remove()
