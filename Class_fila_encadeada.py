@@ -1,6 +1,5 @@
 from Class_pilha_encadeada import *
 
-
 class Noh:
     def __init__(self, dado):
         self.dado = dado
